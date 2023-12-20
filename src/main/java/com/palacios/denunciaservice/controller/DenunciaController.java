@@ -63,6 +63,16 @@ public class DenunciaController {
         return ResponseEntity.ok(gruposDTO);
     }
 
+    @GetMapping(value = "usuario/{dni}")
+    public ResponseEntity<DenunciaDTO> findByDni(@PathVariable("dni") String dni) {
+        Denuncia denuncia = service.findByDniPath(dni);
+        if (denuncia == null) {
+            return ResponseEntity.notFound().build();
+        }
+        DenunciaDTO denunciaDTO = converter.fromEntity(denuncia);
+        return ResponseEntity.ok(denunciaDTO);
+    }
+
     @PostMapping()
     public ResponseEntity<DenunciaDTO> save(@RequestBody DenunciaDTO denunciasDTO) {
         Denuncia registro = service.save(converter.fromDTO(denunciasDTO));

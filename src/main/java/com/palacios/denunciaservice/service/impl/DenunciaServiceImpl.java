@@ -3,6 +3,7 @@ package com.palacios.denunciaservice.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +13,7 @@ import com.palacios.denunciaservice.repository.DenunciaRepository;
 import com.palacios.denunciaservice.service.DenunciaService;
 
 @Service
-public class DenunciaServiceImpl implements DenunciaService{
+public class DenunciaServiceImpl implements DenunciaService {
 
     @Autowired
     private DenunciaRepository repository;
@@ -32,6 +33,18 @@ public class DenunciaServiceImpl implements DenunciaService{
     public List<Denuncia> findByDni(String dni, Pageable page) {
         try {
             return repository.findByDniContaining(dni, page);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Denuncia findByDniPath(String dni) {
+        try {
+            Pageable page = PageRequest.of(0, 1);
+            Denuncia registro = repository.findByDniContaining(dni, page).stream().findFirst().orElse(null);
+            return registro;
         } catch (Exception e) {
             return null;
         }
@@ -83,5 +96,5 @@ public class DenunciaServiceImpl implements DenunciaService{
 
         }
     }
-    
+
 }

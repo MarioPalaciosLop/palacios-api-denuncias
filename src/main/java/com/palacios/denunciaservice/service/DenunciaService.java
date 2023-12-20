@@ -14,6 +14,8 @@ public interface DenunciaService {
 
     public Denuncia findById(int id);
 
+    public Denuncia findByDniPath(String dni);
+
     public Denuncia save(Denuncia denuncia);
 
     public Denuncia update(Denuncia denuncia);
