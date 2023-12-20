@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.palacios.denunciaservice.entity.Denuncia;
 
+@Repository
 public interface DenunciaRepository extends JpaRepository<Denuncia,Integer>{
     List<Denuncia> findByDniContaining(String dni, Pageable page);
 }
