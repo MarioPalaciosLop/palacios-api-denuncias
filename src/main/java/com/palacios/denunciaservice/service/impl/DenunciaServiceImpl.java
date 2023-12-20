@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.palacios.denunciaservice.entity.Denuncia;
 import com.palacios.denunciaservice.repository.DenunciaRepository;
 import com.palacios.denunciaservice.service.DenunciaService;
+import com.palacios.denunciaservice.validator.DenunciaValidator;
 
 @Service
 public class DenunciaServiceImpl implements DenunciaService {
@@ -64,6 +65,7 @@ public class DenunciaServiceImpl implements DenunciaService {
     @Override
     public Denuncia save(Denuncia denuncia) {
         try {
+            //DenunciaValidator.validacion(denuncia);
             Denuncia registro = repository.save(denuncia);
             return registro;
         } catch (Exception e) {
@@ -74,6 +76,7 @@ public class DenunciaServiceImpl implements DenunciaService {
     @Override
     public Denuncia update(Denuncia denuncia) {
         try {
+            //DenunciaValidator.validacion(denuncia);
             Denuncia registro = repository.findById(denuncia.getId()).orElseThrow();
             registro.setDni(denuncia.getDni());
             registro.setFecha(denuncia.getFecha());
